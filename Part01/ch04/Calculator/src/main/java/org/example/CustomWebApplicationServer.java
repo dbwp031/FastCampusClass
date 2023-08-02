@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.Calculator;
+import org.example.calculator.PositiveNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,9 +52,23 @@ public class CustomWebApplicationServer {
                     // 이 수행을 Tomcat이 해준다.
                     // 이 장에서 custom한 톰캣을 만드는 것이다.
 
+
+                    /*
+                    * 핵심 포인트: HTTP 프로토콜이 있기 때문에 우리가 규약에 맞춰  코드를 작성할 수 있었다.
+                    * */
                     HttpRequest httpRequest = new HttpRequest(br);
-                    if (httpRequest.isGetRequest() && httpRequest.matches("/calculate")) {
-                        QueryStrings queryStrings = httpRequest.getQueryString();
+                    if (httpRequest.isGetRequest() && httpRequest.matchPath("/calculate")) {
+                        QueryStrings queryStrings = httpRequest.getQueryStrings();
+
+                        int operand1 = Integer.parseInt(queryStrings.getValue("operand1"));
+                        String operator = queryStrings.getValue("operator");
+                        int operand2 = Integer.parseInt(queryStrings.getValue("operand2"));
+                        int result = Calculator.calculate(new PositiveNumber(operand1), operator, new PositiveNumber(operand2));
+                        byte[] body = String.valueOf(result).getBytes();
+
+                        HttpResponse httpResponse = new HttpResponse(dos);
+                        httpResponse.response200Header("applicatoin/json",body.length);
+                        httpResponse.responseBody(body);
                     }
                 }
             }
