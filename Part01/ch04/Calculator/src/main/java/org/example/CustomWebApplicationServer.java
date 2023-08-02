@@ -9,11 +9,14 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class CustomWebApplicationServer {
     private final int port;
     private static final Logger logger = LoggerFactory.getLogger(CustomWebApplicationServer.class);
 
+    private static ExecutorService executorService = Executors.newFixedThreadPool(10);
     public CustomWebApplicationServer(int port) {
         this.port = port;
     }
@@ -35,11 +38,13 @@ public class CustomWebApplicationServer {
             while ((clientSocket = serverSocket.accept()) != null) {
                 logger.info("[CustomWebApplicationServer] client connected!");
 
-                new Thread(new ClientRequestHandler(clientSocket)).start();
+                // step 3 -> ThreadPool에서 실행한다.
+                executorService.execute(new ClientRequestHandler(clientSocket));
                 // 발생할 수 있는 이슈
                 // Thread -> 생성될 때마다 독립적인 STACK 메모리를 할당 받음
                 // 메모리 할당 -> 비싼 작업
                 // 스레드를 미리 생성해 둔 후 요청이 들어올 때마다 거기서 뽑아쓰는 방법: Thread Pool
+
             }
         }
     }
