@@ -19,6 +19,10 @@ public class CustomWebApplicationServer {
     }
 
     public void start() throws IOException {
+
+        /*
+        * Step 2
+        * */
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             logger.info("[CustomWebApplicationServer] started {} port.", port);
 
@@ -30,47 +34,12 @@ public class CustomWebApplicationServer {
             // 소켓은 프로토콜, IP주소, 포트 넘버로 정의된다.
             while ((clientSocket = serverSocket.accept()) != null) {
                 logger.info("[CustomWebApplicationServer] client connected!");
-                /*
-                * Step 1 - 사용자 요청을 메인 Thread가 처리하도록 한다.
-                 */
-                try (InputStream in = clientSocket.getInputStream(); OutputStream out = clientSocket.getOutputStream()) {
-                    BufferedReader br = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
-                    DataOutputStream dos = new DataOutputStream(out);
 
-//                    String line;
-//                    while ((line = br.readLine()) != "") {
-//                        System.out.println(line);
-//                    }
-//                    GET / HTTP/1.1
-//                    Host: localhost:8080
-//                    Connection: Keep-Alive
-//                    User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-//                    Accept-Encoding: br,deflate,gzip,x-gzip
-                    // -> http 프로토콜의 생김새
-                    // 내부적으로 저런 프로토콜이 들어왔을 때 파싱을 해서 어떤 요청임을 판단해야 함
-                    // 또한 판단에 맞게 Spring한테 전달해주어야 함
-                    // 이 수행을 Tomcat이 해준다.
-                    // 이 장에서 custom한 톰캣을 만드는 것이다.
-
-
-                    /*
-                    * 핵심 포인트: HTTP 프로토콜이 있기 때문에 우리가 규약에 맞춰  코드를 작성할 수 있었다.
-                    * */
-                    HttpRequest httpRequest = new HttpRequest(br);
-                    if (httpRequest.isGetRequest() && httpRequest.matchPath("/calculate")) {
-                        QueryStrings queryStrings = httpRequest.getQueryStrings();
-
-                        int operand1 = Integer.parseInt(queryStrings.getValue("operand1"));
-                        String operator = queryStrings.getValue("operator");
-                        int operand2 = Integer.parseInt(queryStrings.getValue("operand2"));
-                        int result = Calculator.calculate(new PositiveNumber(operand1), operator, new PositiveNumber(operand2));
-                        byte[] body = String.valueOf(result).getBytes();
-
-                        HttpResponse httpResponse = new HttpResponse(dos);
-                        httpResponse.response200Header("applicatoin/json",body.length);
-                        httpResponse.responseBody(body);
-                    }
-                }
+                new Thread(new ClientRequestHandler(clientSocket)).start();
+                // 발생할 수 있는 이슈
+                // Thread -> 생성될 때마다 독립적인 STACK 메모리를 할당 받음
+                // 메모리 할당 -> 비싼 작업
+                // 스레드를 미리 생성해 둔 후 요청이 들어올 때마다 거기서 뽑아쓰는 방법: Thread Pool
             }
         }
     }
