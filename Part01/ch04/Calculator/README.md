@@ -21,3 +21,12 @@
   
 ### 소켓
 ![img_1.png](img_1.png)
+
+### HTTPRequest
+* RequestLine (GET /calculate?operand=11&operator=*&operand2=55
+  )
+  * HttpMethod
+  * path
+  * queryString
+* Header
+* Body
