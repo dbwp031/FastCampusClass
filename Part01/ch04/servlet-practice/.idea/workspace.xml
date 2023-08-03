@@ -5,7 +5,40 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4a8f4bd8-0a60-4487-9c01-b2ee95dd71c4" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/.idea/dbnavigator.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/.idea/httpRequests/2023-08-03T115321.404.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/.idea/httpRequests/2023-08-03T115341.404.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/.idea/httpRequests/2023-08-03T115553.404.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/.idea/httpRequests/2023-08-03T115640.404.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/.idea/httpRequests/2023-08-03T115647.404.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/.idea/httpRequests/2023-08-03T115648.404.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/.idea/httpRequests/2023-08-03T115830.404.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/.idea/httpRequests/2023-08-03T122856.404.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/.idea/httpRequests/http-client.cookies" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/.idea/httpRequests/http-requests-log.http" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/src/main/java/org/example/CalculatorServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/src/main/java/org/example/WebApplicationServerLauncher.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/src/main/java/org/example/calculator/domain/Calculator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/src/main/java/org/example/calculator/domain/EnumArithmeticOperator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/src/main/java/org/example/calculator/domain/PositiveNumber.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/src/main/java/org/example/calculator/tobe/AdditionOperator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/src/main/java/org/example/calculator/tobe/ArithmeticOperator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/src/main/java/org/example/calculator/tobe/DivisionOperator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/src/main/java/org/example/calculator/tobe/MultiplicationOperator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/src/main/java/org/example/calculator/tobe/SubtractionOperator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/test.http" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ch04/servlet-practice/webapp/index.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,24 +66,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/37739/workspaces/FastCampusClass/Part01/ch05/servlet-practice/build.gradle",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\User\workspaces\FastCampusClass\Part01\ch04\servlet-practice" />
     </key>
   </component>
-  <component name="RunManager" selected="HTTP 요청.test | #1 (1)">
+  <component name="RunManager" selected="Application.WebApplicationServerLauncher">
     <configuration name="WebApplicationServerLauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.WebApplicationServerLauncher" />
       <module name="servlet-practice.main" />
@@ -64,19 +98,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="test | #1 (1)" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/test.http" requestIdentifier="#1" runType="단일 요청 실행">
+    <configuration name="test | #1 (1)" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/test.http" requestIdentifier="#1">
       <method v="2" />
     </configuration>
-    <configuration name="test | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/src/main/java/org/example/test.http" requestIdentifier="#1" runType="단일 요청 실행">
+    <configuration name="test | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/src/main/java/org/example/test.http" requestIdentifier="#1">
       <method v="2" />
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="HTTP 요청.test | #1 (1)" />
-        <item itemvalue="HTTP 요청.test | #1" />
-        <item itemvalue="애플리케이션.WebApplicationServerLauncher" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -88,6 +115,7 @@
       <updated>1691030922484</updated>
       <workItem from="1691030925376" duration="2576000" />
       <workItem from="1691037112591" duration="20000" />
+      <workItem from="1691039460876" duration="584000" />
     </task>
     <servers />
   </component>
