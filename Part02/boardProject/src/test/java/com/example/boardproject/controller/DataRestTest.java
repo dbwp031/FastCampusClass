@@ -1,5 +1,6 @@
 package com.example.boardproject.controller;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 * 사실 Spring Data Rest는 이미 잘 동작하는 것이 검증된 것이기 때문에 테스트를 해볼 필요가 없다.
 * 하지만 공부하는 중이기 때문에 테스트를 작성하는 것.
 * */
-
+@Disabled("Spring Data REST 통합테스트는 불필요하므로 제외시킴")
 //@WebMvcTest // sliceTest -> controller외의 빈들을 로드하지 않는다.
 @AutoConfigureMockMvc
 @Transactional
