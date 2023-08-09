@@ -16,6 +16,7 @@ spring:
 #    url: jdbc:h2:mem:testdb
 #    username: sa
 #    driver-class-name: org.h2.Driver
+
   jpa:
     defer-datasource-initialization: true # ???? db ??? ????? ? (data.sql)
     hibernate:
@@ -30,6 +31,9 @@ spring:
   data.rest:
     base-path: /api
     detection-strategy: annotated
+  thymeleaf3:
+    decoupled-logic: true
+
 ---
 
 #spring:
