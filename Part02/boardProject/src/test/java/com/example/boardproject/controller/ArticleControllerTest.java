@@ -42,7 +42,7 @@ class ArticleControllerTest {
         // When & Then
         mvc.perform(get("/articles/1")) // cntrl + space + space -> suggestions & alt + enter -> import statically
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.TEXT_HTML))
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andExpect(view().name("articles/detail"))
                 .andExpect(model().attributeExists("article"))
                 .andExpect(model().attributeExists("articleComment")); // -> model attribute의 Map에 articles라는 키가 있는지 확인
@@ -57,7 +57,7 @@ class ArticleControllerTest {
         mvc.perform(get("/articles/search")) // cntrl + space + space -> suggestions & alt + enter -> import statically
                 .andExpect(status().isOk())
                 .andExpect(view().name("articles/search"))
-                .andExpect(content().contentType(MediaType.TEXT_HTML)); // -> model attribute의 Map에 articles라는 키가 있는지 확인
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML)); // -> model attribute의 Map에 articles라는 키가 있는지 확인
     }
     @Disabled("구현 중")
 
@@ -69,6 +69,6 @@ class ArticleControllerTest {
         mvc.perform(get("/articles/search-hashtag")) // cntrl + space + space -> suggestions & alt + enter -> import statically
                 .andExpect(status().isOk())
                 .andExpect(view().name("articles/search-hashtag"))
-                .andExpect(content().contentType(MediaType.TEXT_HTML)); // -> model attribute의 Map에 articles라는 키가 있는지 확인
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML)); // -> model attribute의 Map에 articles라는 키가 있는지 확인
     }
 }
