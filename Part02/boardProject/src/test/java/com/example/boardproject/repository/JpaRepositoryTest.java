@@ -3,6 +3,7 @@ package com.example.boardproject.repository;
 import com.example.boardproject.config.JpaConfig;
 import com.example.boardproject.domain.Article;
 import com.example.boardproject.domain.ArticleComment;
+import com.example.boardproject.domain.UserAccount;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,13 +28,16 @@ class JpaRepositoryTest {
 
     private final ArticleRepository articleRepository; // junit5부터 autowired 기능이 포함되어서 생성자 주입 패턴으로 생성
     private final ArticleCommentRepository articleCommentRepository;
+    private final UserAccountRepository userAccountRepository;
 
     public JpaRepositoryTest(
             @Autowired ArticleRepository articleRepository,
-            @Autowired ArticleCommentRepository articleCommentRepository
+            @Autowired ArticleCommentRepository articleCommentRepository,
+            @Autowired UserAccountRepository userAccountRepository
     ) {
         this.articleRepository = articleRepository;
         this.articleCommentRepository = articleCommentRepository;
+        this.userAccountRepository = userAccountRepository;
     }
     @DisplayName("select 테스트")
     @Test
@@ -57,12 +61,14 @@ class JpaRepositoryTest {
     void givenTestData_whenInserting_thenWorksFine() {
         // Given
         long previousCount = articleRepository.count();
+        UserAccount userAccount = userAccountRepository.save(UserAccount.of("uno", "pw", null, null, null));
+        Article article = Article.of(userAccount, "new article", "new content", "#Spring");
         // When
-        Article savedArticle = articleRepository.save(Article.of("new article", "new content", "#spring"));
+//        List<Article> articles = articleRepository.findAll();
+//        List<ArticleComment> articleComments = articleCommentRepository.findAll();
+        articleRepository.save(article);
         // Then
-        assertThat(articleRepository.count())
-                .isEqualTo(previousCount + 1);
-
+        assertThat(articleRepository.count()).isEqualTo(previousCount + 1);
     }
     // update query 발생하지 않음 -> 트랙잭션(롤백)때문에
     //
