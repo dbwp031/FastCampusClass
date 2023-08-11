@@ -51,3 +51,6 @@ BDDMockito를 사용하면 테스트 코드를 더 읽기 쉬운 형태로 작�
         then(articleCommentRepository).should().findByArticle_Id(articleId);
     }
 ```
+
+## @MockBean
+TODO: 작성
