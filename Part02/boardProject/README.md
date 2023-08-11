@@ -17,6 +17,7 @@
 ## 새롭게 알게 된 내용 BackLog
 * `@MockBean`
 * `@MethodSource`
+* `getReferenceById`
 
 ## 유용한 사이트
 `.gitignore` 쉽게 생성해주는 사이트
