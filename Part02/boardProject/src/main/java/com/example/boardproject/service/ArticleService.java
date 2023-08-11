@@ -14,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /*
 * @Transactional
 * 클래스 레벨에서 @Transactional을 걸어주면, 클래스 내의 전체 매소드를 하나의 트랜잭션 취급한다.
@@ -77,5 +79,15 @@ public class ArticleService {
     public void deleteArticle(Long articleId) {
         articleRepository.deleteById(articleId);
     }
+    @Transactional(readOnly = true)
+    public Page<ArticleDto> searchArticlesViaHashtag(String hashtag, Pageable pageable) {
+        if (hashtag == null || hashtag.isBlank()) {
+            return Page.empty(pageable);
+        }
+        return articleRepository.findByHashtag(hashtag, pageable).map(ArticleDto::from);
+    }
 
+    public List<String> getHashtags() {
+        return articleRepository.findAllDistinctHashtags();
+    }
 }
