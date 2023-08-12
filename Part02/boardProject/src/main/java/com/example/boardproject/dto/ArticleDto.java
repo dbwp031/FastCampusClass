@@ -1,6 +1,7 @@
 package com.example.boardproject.dto;
 
 import com.example.boardproject.domain.Article;
+import com.example.boardproject.domain.UserAccount;
 
 import java.time.LocalDateTime;
 /*레코드(record)란 "데이터 클래스"이며 순수하게 데이터를 보유하기 위한 특수한 종류의 클래스이다.
@@ -18,6 +19,10 @@ public record ArticleDto(
         LocalDateTime modifiedAt,
         String modifiedBy
 ){
+
+    public static ArticleDto of(UserAccountDto userAccountDto, String title, String content, String hashtag) {
+        return new ArticleDto(null, userAccountDto, title, content, hashtag, null, null, null, null);
+    }
     /*
     * Effective Java
     * 아이템 1: 생성자 대신 정적 팩터리 메서드를 고려하라
@@ -41,9 +46,9 @@ public record ArticleDto(
         );
     }
 
-    public Article toEntity() {
+    public Article toEntity(UserAccount userAccount) {
         return Article.of(
-                userAccountDto.toEntity(),
+                userAccount,
                 title,
                 content,
                 hashtag
