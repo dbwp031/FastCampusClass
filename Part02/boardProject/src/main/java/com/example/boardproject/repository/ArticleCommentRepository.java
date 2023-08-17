@@ -1,11 +1,9 @@
 package com.example.boardproject.repository;
 
-import com.example.boardproject.domain.Article;
 import com.example.boardproject.domain.ArticleComment;
 import com.example.boardproject.domain.QArticleComment;
 import com.querydsl.core.types.dsl.DateTimeExpression;
 import com.querydsl.core.types.dsl.StringExpression;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;

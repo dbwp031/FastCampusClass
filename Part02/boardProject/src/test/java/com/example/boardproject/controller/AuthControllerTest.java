@@ -35,7 +35,7 @@ public class AuthControllerTest {
 //    @Disabled("구현 중")
     @DisplayName("[view] [GET] 로그인 페이지 - 정상 호출")
     @Test
-    public void givenNothing_whenTryingToLogin_thenReturnsLoginView() throws Exception {
+    void givenNothing_whenTryingToLogin_thenReturnsLoginView() throws Exception {
         // Given
 
         // When & Then

@@ -1,5 +1,6 @@
 package com.example.boardproject.service;
 
+import com.example.boardproject.domain.Article;
 import com.example.boardproject.domain.ArticleComment;
 import com.example.boardproject.dto.ArticleCommentDto;
 import com.example.boardproject.repository.ArticleCommentRepository;
@@ -15,9 +16,10 @@ import java.util.List;
 @RequiredArgsConstructor
 @Transactional
 @Service
-public class ArticleCommentsService {
+public class ArticleCommentService {
     private final ArticleRepository articleRepository;
     private final ArticleCommentRepository articleCommentRepository;
+
     @Transactional(readOnly = true)
     public List<ArticleCommentDto> searchArticleComments(Long articleId) {
         return articleCommentRepository.findByArticle_Id(articleId)
@@ -28,6 +30,8 @@ public class ArticleCommentsService {
 
     public void saveArticleComment(ArticleCommentDto dto) {
         try {
+            Article article = articleRepository.getReferenceById(dto.articleId());
+
             articleCommentRepository.save(dto.toEntity(articleRepository.getReferenceById(dto.articleId())));
         } catch (EntityNotFoundException e) {
             log.warn("댓글 저장 실패. 댓글의 게시글을 찾을 수 없습니다 - dto: {}", dto);
