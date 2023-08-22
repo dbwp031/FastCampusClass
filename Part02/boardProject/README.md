@@ -1,4 +1,34 @@
 # Board Project
+가장 기본적이고 보편적인 게시판 기능을 둘러볼 수 있는 서비스입니다. 
+
+## 개발 환경
+* Intellij IDEA Ultimate 2023.1
+* Java 17
+* Gradle
+* Spring boot 3.1.2
+
+* ## 기술 세부 스택
+
+Spring Boot
+
+* Spring Boot Actuator
+* Spring Web
+* Spring Data JPA
+* Rest Repositories
+* Rest Repositories HAL Explorer
+* Thymeleaf
+* Spring Security
+* H2 Database
+* MySQL Driver
+* Lombok
+* Spring Boot DevTools
+* Spring Configuration Processor
+
+그 외
+
+* QueryDSL
+* Bootstrap
+
 ## 정리 내용
 * [Mock, Mockito, BDDMockito 란](docs/Mock.md)
 * [Page, Pageable 이란](docs/page.md)
