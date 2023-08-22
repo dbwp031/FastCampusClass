@@ -1,6 +1,7 @@
 package com.example.boardproject.dto;
 import com.example.boardproject.domain.Article;
 import com.example.boardproject.domain.ArticleComment;
+import com.example.boardproject.domain.UserAccount;
 
 import java.time.LocalDateTime;
 
@@ -33,7 +34,7 @@ public record ArticleCommentDto(
                 entity.getModifiedBy()
         );
     }
-    public ArticleComment toEntity(Article entity) {
+    public ArticleComment toEntity(Article entity, UserAccount userAccount) {
         return ArticleComment.of(
                 entity,
                 userAccountDto.toEntity(),

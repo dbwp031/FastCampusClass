@@ -25,6 +25,8 @@ public interface ArticleRepository extends
     Page<Article> findByUserAccount_UserIdContaining(String userId, Pageable pageable);
     Page<Article> findByUserAccount_NicknameContaining(String nickname, Pageable pageable);
     Page<Article> findByHashtag(String hashtag, Pageable pageable);
+
+    void deleteByIdAndUserAccount_UserId(Long articleId, String userId);
     @Override // 이 안의 내용으로 검색에 대한 세부적인 규칙이 변경된다.
     default void customize(QuerydslBindings bindings, QArticle root){
         bindings.excludeUnlistedProperties(true); // 현재 QuerydslPredicateExecutor로 인해서 검색에 대하여 모든 필드가 열려있다. -> 필드를 선택해서 해당 필드만 검색할 수 있도록 하고 싶다.

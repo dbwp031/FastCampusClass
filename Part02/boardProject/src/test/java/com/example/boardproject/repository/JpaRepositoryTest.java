@@ -10,10 +10,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.*;
 // 하지만 @DataJpaTest를 사용하는 순간 자기가 지정한 defualt 모드로 동작함
 // 이를 막기위한 어노테이션이 아래 어노테이션임
 //@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Import(JpaConfig.class) // JpaConfig의 JpaAuditing을 인식할 수 있도록 함.
+@Import(JpaRepositoryTest.TestJpaConfig.class) // JpaConfig의 JpaAuditing을 인식할 수 있도록 함.
 @DataJpaTest // method 단위로 자동으로 트랜잭션이 걸려있음
 class JpaRepositoryTest {
 
@@ -105,4 +111,14 @@ class JpaRepositoryTest {
 
     // 테스트 데이터를 대량으로 자동 생성해주는 서비스: mockaroo
     // https://www.mockaroo.com/schemas/new
+
+    @EnableJpaAuditing
+    @TestConfiguration
+    public static class TestJpaConfig {
+        @Bean
+        public AuditorAware<String> auditorAware() {
+            return () -> Optional.of("uno");
+        }
+    }
+
 }

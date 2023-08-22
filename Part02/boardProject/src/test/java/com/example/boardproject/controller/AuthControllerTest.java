@@ -1,6 +1,7 @@
 package com.example.boardproject.controller;
 
 import com.example.boardproject.config.SecurityConfig;
+import com.example.boardproject.config.TestSecurityConfig;
 import com.example.boardproject.service.ArticleService;
 import com.example.boardproject.service.PaginationService;
 import org.junit.jupiter.api.DisplayName;
@@ -11,14 +12,15 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import static org.mockito.BDDMockito.then;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @DisplayName("View 컨트롤러 - 인증")
-@Import(SecurityConfig.class)
-@WebMvcTest
+@Import(TestSecurityConfig.class)
+@WebMvcTest(Void.class)
 public class AuthControllerTest {
 
     private final MockMvc mvc;
@@ -41,10 +43,9 @@ public class AuthControllerTest {
         // When & Then
         mvc.perform(get("/login")) // cntrl + space + space -> suggestions & alt + enter -> import statically
                 .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML)); // contentType -> exact하게 맞을때만 통과 & contentTypeCompatibleWith -> 호환 가능한 애들까지 통과
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML));
         then(articleService).shouldHaveNoInteractions();
         then(paginationService).shouldHaveNoInteractions();
-
     }
 
 }

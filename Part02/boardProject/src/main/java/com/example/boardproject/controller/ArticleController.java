@@ -6,6 +6,7 @@ import com.example.boardproject.dto.UserAccountDto;
 import com.example.boardproject.dto.request.ArticleRequest;
 import com.example.boardproject.dto.response.ArticleResponse;
 import com.example.boardproject.dto.response.ArticleWithCommentsResponse;
+import com.example.boardproject.dto.security.BoardPrincipal;
 import com.example.boardproject.service.ArticleService;
 import com.example.boardproject.service.PaginationService;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -105,10 +107,10 @@ public class ArticleController {
         return "redirect:/articles/" + articleId;
     }
     @PostMapping ("/{articleId}/delete")
-    public String deleteArticle(@PathVariable Long articleId) {
-        // TODO: 인증 정보를 넣어줘야 한다.
-        articleService.deleteArticle(articleId);
-
+    public String deleteArticle(
+            @PathVariable Long articleId,
+            @AuthenticationPrincipal BoardPrincipal boardPrincipal) {
+    articleService.deleteArticle(articleId, boardPrincipal.getUsername());
         return "redirect:/articles";
     }
 

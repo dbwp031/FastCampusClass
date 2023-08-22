@@ -1,21 +1,65 @@
 package com.example.boardproject.config;
 
+import com.example.boardproject.dto.UserAccountDto;
+import com.example.boardproject.dto.security.BoardPrincipal;
+import com.example.boardproject.repository.UserAccountRepository;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import java.util.stream.Stream;
 
 import static org.springframework.security.config.Customizer.withDefaults;
-
+/*
+* 버그 수정 - requestMatchers에 String이 들어가지 못하도록 하고 있다. application이 다시 동작하기 위해서 하는 행동인 듯 하다.
+* https://velog.io/@404-nut-pound/Spring-Security-AntPathRequestMatcher-%EC%98%A4%EB%A5%98-%EC%B2%98%EB%A6%AC
+* */
 //@EnableWebSecurity // -> SpringBoot에서 Spring Security를 연동해서 쓸 때에는 자동으로 빈 등록이 되어 있다. (따라서 안해도 됨)
 @Configuration
 public class SecurityConfig {
+
+    //권한 확인을 하지 않는 uri
+    private static final String[] PERMIT_ALL_PATTERNS = new String[] {
+            "/",
+            "/articles",
+            "/articles/search-hashtag"
+    };
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+                .authorizeHttpRequests(auth -> auth
+                                .requestMatchers(
+                                        Stream
+                                        .of(PERMIT_ALL_PATTERNS)
+                                        .map(pattern -> new AntPathRequestMatcher(pattern, HttpMethod.GET.name()))
+                                        .toArray(AntPathRequestMatcher[]::new)).permitAll()
+                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                        .anyRequest().authenticated()
+                )
                 .formLogin(withDefaults())
+                .logout(form -> form
+                        .logoutSuccessUrl("/"))
                 .build();
+    }
+    @Bean
+    public UserDetailsService userDetailsService(UserAccountRepository userAccountRepository) {
+        return username -> userAccountRepository
+                .findById(username)
+                .map(UserAccountDto::from)
+                .map(BoardPrincipal::from)
+                .orElseThrow(() -> new UsernameNotFoundException("유저를 찾을 수 없습니다 - username: " + username));
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 }
