@@ -82,6 +82,7 @@ public class ArticleService {
                 if (dto.content() != null) {
                     article.setContent(dto.content());
                 }
+
                 article.setHashtag(dto.hashtag());
             }
         } catch (EntityNotFoundException e) {
