@@ -9,11 +9,11 @@ logging:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/board
-    username: uno
-    password: thisisTEST
-    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:h2:mem:testdb
+#    url: jdbc:mysql://localhost:3306/board
+    url: jdbc:postgresql://localhost:5432/board
+    username: dbwp
+    password: 1234
+  #    url: jdbc:h2:mem:testdb
 #    username: sa
 #    driver-class-name: org.h2.Driver
 
@@ -21,6 +21,7 @@ spring:
     open-in-view: false
     defer-datasource-initialization: true # ???? db ??? ????? ? (data.sql)
     hibernate:
+      dialect: org.hibernate.dialect.PostgreSQL10Dialect
       ddl-auto: create # ???? ?? ddl ???? (??? ????)
 #    open-in-view: false
     show-sql: true # ????
