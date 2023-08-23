@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -12,7 +14,6 @@ import java.util.Set;
 @ToString(callSuper = true) // 생성자까지 찎겠다.
 @Table(indexes = {
         @Index(columnList = "title"),
-        @Index(columnList = "hashtag"),
         @Index(columnList = "createdAt"), // 상속하는 필드
         @Index(columnList = "createdBy"), // 상속하는 필드
 })
@@ -23,7 +24,7 @@ public class Article extends AuditingFields{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Setter @ManyToOne(optional = false) @JoinColumn(name="userId") private UserAccount userAccount;
+    @Setter @JoinColumn(name="userId") @ManyToOne(optional = false) private UserAccount userAccount;
     //name-> 내(Article) 테이블의 FK 필드명
     //referencedColumnName -> 조일할 컬럼명
     // 결국 여기서는 article table과 user_account table과 연관관계인데, article table이 user_account의 user_id(referencedByName)필드를 user_id(name)이란 이름으로 저장한다.
@@ -31,7 +32,15 @@ public class Article extends AuditingFields{
     @Setter @Column(nullable = false) private String title; //제목
     @Setter @Column(nullable = false, length = 10000) private String content; // 본문
 
-    @Setter private String hashtag; // 해시태그
+    // persist -> save / merge -> update
+    @ToString.Exclude
+    @JoinTable(
+            name = "article_hashtag",
+            joinColumns = @JoinColumn(name = "articleId"),
+            inverseJoinColumns = @JoinColumn(name = "hashtagId")
+    )
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<Hashtag> hashtags = new LinkedHashSet<>();
 
     // 실무에서는 양방향 매핑을 안할 때가 있음 -> cascade로 강하게 결합되기 때문에 data migration이나 편집할 때 불편함.
     // 원치않는 데이터 손실이 일어날 수 있음.
@@ -54,17 +63,27 @@ public class Article extends AuditingFields{
 
     protected Article() {}
 
-    private Article(UserAccount userAccount, String title, String content, String hashtag) {
+    private Article(UserAccount userAccount, String title, String content) {
         this.title = title;
         this.content = content;
-        this.hashtag = hashtag;
         this.userAccount = userAccount;
     }
 
-    public static Article of(UserAccount userAccount, String title, String content, String hashtag) {
-        return new Article(userAccount, title, content, hashtag);
+    public static Article of(UserAccount userAccount, String title, String content) {
+        return new Article(userAccount, title, content);
     }
 
+    public void addHashtag(Hashtag hashtag) {
+        this.getHashtags().add(hashtag);
+    }
+
+    public void addHashtags(Collection<Hashtag> hashtags) {
+        this.getHashtags().addAll(hashtags);
+    }
+
+    public void clearHashtags() {
+        this.getHashtags().clear();
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
