@@ -4,6 +4,7 @@ import com.example.boardproject.domain.Hashtag;
 import com.example.boardproject.repository.HashtagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,6 +13,7 @@ import java.util.regex.Pattern;
 /*
 * Set.copyOf -> 불변을 위해
 * */
+@Transactional
 @RequiredArgsConstructor
 @Service
 public class HashtagService {
@@ -32,7 +34,7 @@ public class HashtagService {
 
         return Set.copyOf(result);
     }
-
+    @Transactional(readOnly = true)
     public Set<Hashtag> findHashtagByNames(Set<String> hashtagNames) {
         return new HashSet<>(hashtagRepository.findByHashtagNameIn(hashtagNames));
     }

@@ -103,7 +103,6 @@ public class HashtagServiceTest {
         ));
         // When
         Set<Hashtag> hashtags = sut.findHashtagByNames(hashtagNames);
-
         // Then
         assertThat(hashtags).hasSize(2);
         then(hashtagRepository).should().findByHashtagNameIn(hashtagNames);
