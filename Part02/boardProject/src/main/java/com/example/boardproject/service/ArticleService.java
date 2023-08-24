@@ -6,6 +6,7 @@ import com.example.boardproject.domain.constant.SearchType;
 import com.example.boardproject.dto.ArticleDto;
 import com.example.boardproject.dto.ArticleWithCommentsDto;
 import com.example.boardproject.repository.ArticleRepository;
+import com.example.boardproject.repository.HashtagRepository;
 import com.example.boardproject.repository.UserAccountRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -29,8 +30,10 @@ import java.util.List;
 @Transactional
 @Service
 public class ArticleService {
+    private final HashtagService hashtagService;
     private final ArticleRepository articleRepository;
     private final UserAccountRepository userAccountRepository;
+    private final HashtagRepository hashtagRepository;
     /*
     * Page 클래스
     * 데이터의 페이지네이션을 처리하기 위한 클래스
