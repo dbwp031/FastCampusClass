@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -37,8 +38,14 @@ public class SecurityConfig {
     private static final String[] PERMIT_ALL_PATTERNS = new String[] {
             "/",
             "/articles",
-            "/articles/search-hashtag"
+            "/articles/search-hashtag",
     };
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().requestMatchers(Stream.of(new String[] {"/favicon.ico"})
+                .map(pattern -> new AntPathRequestMatcher(pattern, HttpMethod.GET.name()))
+                .toArray(AntPathRequestMatcher[]::new));
+    }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuthUserService) throws Exception {
         return http
