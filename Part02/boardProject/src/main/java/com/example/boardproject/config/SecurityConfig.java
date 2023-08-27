@@ -39,10 +39,14 @@ public class SecurityConfig {
             "/",
             "/articles",
             "/articles/search-hashtag",
+            "/swagger-ui/index.html",
+            "/swagger/**",
+            "/swagger-resources/**",
+            "/webjars/**"
     };
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers(Stream.of(new String[] {"/favicon.ico"})
+        return (web) -> web.ignoring().requestMatchers(Stream.of(new String[] {"/favicon.ico", "swagger-ui/**"})
                 .map(pattern -> new AntPathRequestMatcher(pattern, HttpMethod.GET.name()))
                 .toArray(AntPathRequestMatcher[]::new));
     }
